@@ -1,1 +1,47 @@
+public class AreaCalculator {
+
+    public static double rectangleArea(double length, double width) {
+        return length * width;
+    }
+
+    public static double circleArea(double radius) {
+        return 3.14 * radius * radius; // Hardcoded value of π
+    }
+
+    public static void main(String[] args) {
+        double rectLength = 5;
+        double rectWidth = 3;
+        double rectArea = rectangleArea(rectLength, rectWidth);
+        System.out.println("Rectangle Area: " + rectArea);
+
+        double circRadius = 4;
+        double circArea = circleArea(circRadius);
+        System.out.println("Circle Area: " + circArea);
+    }
+}
+AFTER APPLYING DRY
+
+public class AreaCalculator {
+
+    public static double area(String shape, double... dimensions) {
+        switch (shape.toLowerCase()) {
+            case "rectangle":
+                return dimensions[0] * dimensions[1];
+            case "circle":
+                return Math.PI * dimensions[0] * dimensions[0]; // Use Math.PI for accuracy
+            default:
+                throw new IllegalArgumentException("Unknown shape: " + shape);
+        }
+    }
+
+    public static void main(String[] args) {
+        double rectArea = area("rectangle", 5, 3);
+        System.out.println("Rectangle Area: " + rectArea);
+
+        double circArea = area("circle", 4);
+        System.out.println("Circle Area: " + circArea);
+    }
+}
+
+
 
